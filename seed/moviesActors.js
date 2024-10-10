@@ -4,6 +4,9 @@ const { Movie, Actor, Review } = require(`../models`)
 db.on(`error`, console.error.bind(console, `MongoDB connection error:`))
 
 const main = async () => {
+
+  await Movie.deleteMany()
+
     const movie1 = await new Movie({
       title: `Inception`,
       runtime: 8880,
@@ -145,12 +148,17 @@ const main = async () => {
       }
     ]
 
+    await Actor.deleteMany()
+    await Review.deleteMany()
+
     await Actor.insertMany(actors)
     console.log(`Created actors!`)
 
     await Review.insertMany(reviews)
     console.log(`Created reviews!`)
 }
+
+
 
 const run = async () => {
     await main()
